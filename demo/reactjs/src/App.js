@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import tpl from './views/demo.liquid';
 import Parser from 'html-react-parser';
 import { engine } from './engine';

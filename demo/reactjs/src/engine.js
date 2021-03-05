@@ -10,3 +10,12 @@ engine.registerFilter('image', d => {
   let img = `<img src="${d}" class="App-logo" alt="logo"></img>`;  
   return img 
 })
+engine.registerFilter('form', d => {
+  let form = `
+    <form class="${d}">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" />
+    </form>
+  `;  
+  return form; 
+})

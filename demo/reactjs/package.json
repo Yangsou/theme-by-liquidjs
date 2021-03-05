@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.5.0",
+    "antd": "^4.13.0",
     "html-react-parser": "^0.4.7",
     "liquidjs": "^9.1.0",
+    "node-sass": "4.14.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-promise": "^2.0.3",
