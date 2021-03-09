@@ -3,7 +3,7 @@
  */
 import React, { useState, useLayoutEffect } from 'react';
 import './App.scss';
-import logo from './logo.svg';
+import logo from './assets/img/nexlab-logo.svg';
 import tplsrc from './views/showing-click-times.liquid';
 import { engine } from './engine';
 import { Context } from './Context';
@@ -17,7 +17,7 @@ import {
 import ProductList from './pages/list';
 import ProductDetail from './pages/product';
 
-const fetchTpl = engine.getTemplate(tplsrc.toString())
+const fetchTpl = engine.getTemplate(tplsrc.toString());
 
 export function App() {
   const [state, setState] = useState({
@@ -97,10 +97,11 @@ export function App() {
       layout: 'layout-1'
     }
   });
-  const saveGeneralInfo = (form) => {
+  const saveGeneralInfo = (form, logoUrl) => {
     setState({
       ...state,
-      general: form
+      general: form,
+      logo: logoUrl
     });
     localStorage.setItem('state', JSON.stringify({...state, general: form}));
   }
@@ -137,7 +138,7 @@ export function App() {
             </Route>
           </Switch>
         </Router>
-        <Settings general={state.general} theme={state.theme} />
+        <Settings logo={state.logo} general={state.general} theme={state.theme} />
       </Context.Provider>
     </div>
   );

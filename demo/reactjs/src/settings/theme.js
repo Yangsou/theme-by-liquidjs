@@ -31,7 +31,7 @@ export default function Theme({theme}) {
     <Form
       {...layout}
       name="basic"
-      initialValues={context.theme}
+      initialValues={theme}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       >

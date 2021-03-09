@@ -1,10 +1,5 @@
 <div>
-    <header className="App-header">
-        <!-- {{ logo | image }} -->
-        <h2>{{general.brand | capitalize}}</h2>
-        <!-- <p>Edit <code>src/App.js</code> and save to reload.</p> -->
-        <p>{{ general.slogan }}</p>
-    </header>
+    {{ general.brand | header: general.slogan, logo }}
 
     <div class="product {{ theme.theme }} {{ theme.layout }}">
         <div class="product__container">
@@ -41,5 +36,6 @@
     </div>
 
     <input type="submit" value="Sign In" /> -->
+    {{ theme.theme | footer }}
 
 </div>

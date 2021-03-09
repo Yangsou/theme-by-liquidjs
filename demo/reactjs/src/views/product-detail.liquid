@@ -1,36 +1,30 @@
 <div>
-    <header className="App-header">
-        <h2>{{general.brand | capitalize}}</h2>
-        <p>{{ general.slogan }}</p>
-    </header>
+    {{ general.brand | header: general.slogan, logo }}
     
-    <div class="product {{ theme.theme }} {{ theme.layout }}">
+    <div class="product product--detail {{ theme.theme }} {{ theme.layout }}">
         <div class="product__container">
             <div class="product__row">
-                <h2>{{ product.name }}</h2>
-                {{ product.image | image }}
+                <div class="col-xs-12">
+                    <h2>{{ product.name }}</h2>
+                    {{ product.image | image }}
+                </div>
+                <div class="col-xs-12">
+                    <form class="product__form">
+                        <label for="productQuantity">Quantity:</label>
+                        <input type="number"
+                            name="productQuantity"
+                            min="0"
+                            id="productQuantity"
+                            autocorrect="off"
+                            autocapitalize="off">
+                        
+                        <input type="submit" value="Order" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    
-    <!-- {{ 'form-login' | form }} -->
 
-    <!-- <div>
-    <label for="customerEmail">Email Address</label>
-    <input type="email"
-        name="customer[email]"
-        id="customerEmail"
-        autocorrect="off"
-        autocapitalize="off"
-        autocomplete="email">
-    </div>
-    <div>
-    <label for="customerPassword">Password</label>
-    <input type="password"
-        name="customer[password]"
-        id="customerPassword">
-    </div>
-
-    <input type="submit" value="Sign In" /> -->
+    {{ theme.theme | footer }}
 
 </div>

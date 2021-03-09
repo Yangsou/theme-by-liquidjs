@@ -19,3 +19,23 @@ engine.registerFilter('form', d => {
   `;  
   return form; 
 })
+engine.registerFilter('footer', d => {
+  return `
+    <footer class="app-footer ${d}">
+      <p>Nexlab &copy; 2021</p>
+    </footer>
+  `;
+})
+engine.registerFilter('header', (brand, slogan, logo) => {
+  return `
+    <header className="App-header">
+      <a href="/">
+        <img src="${logo}" />
+      </a>  
+      <div>
+        <a href="/">${brand}</a>
+        <p>${slogan}</p>
+      </div>
+    </header>
+  `;
+})

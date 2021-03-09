@@ -4,7 +4,7 @@ import {SettingOutlined} from '@ant-design/icons';
 import General from './general';
 import Theme from './theme';
 
-export default function Settings({general, theme}) {
+export default function Settings({general, theme, logo}) {
     const [visible, setVisible] = useState(false);
     const handleOk = () => {
         //
@@ -18,8 +18,7 @@ export default function Settings({general, theme}) {
     function callback(key) {
         console.log(key);
     }
-    console.log('general info', general);
-    console.log('theme info', theme);
+    
     return (
         <>
             <Button
@@ -46,7 +45,7 @@ export default function Settings({general, theme}) {
             >
                 <Tabs defaultActiveKey="1" onChange={callback}>
                     <Tabs.TabPane tab="General" key="1">
-                        <General general={general} />
+                        <General logo={logo} general={general} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Theme" key="2">
                         <Theme theme={theme} />

@@ -1,9 +1,16 @@
-import { Button, Form, Input, message } from 'antd';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Form, Input, message, Upload } from 'antd';
 import React, { useContext, useState } from 'react';
 import { Context } from '../Context';
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
 
-export default function General({general}) {
+export default function General({general, logo}) {
     const [loading, setLoading] = useState(false);
+    const [logoUrl, setLogoUrl] = useState('');
     const context = useContext(Context);
     const layout = {
         labelCol: { span: 8 },
@@ -17,7 +24,7 @@ export default function General({general}) {
     };
     const onFinish = (values) => {
         setLoading(true);
-        context.saveGeneralInfo(values);
+        context.saveGeneralInfo(values, logoUrl || logo);
         setTimeout(() => {
             setLoading(false);
             message.success('Updated successfully!');
@@ -27,8 +34,28 @@ export default function General({general}) {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const uploadButton = (
+        <div>
+          {loading ? <LoadingOutlined /> : <PlusOutlined />}
+          <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
 
-
+    const handleChange = file => {
+        //
+    }
+    const customRequest = ({
+        file,
+        onSuccess,
+      }) => {
+        setTimeout(() => {
+        getBase64(file, (result) => {
+            setLogoUrl(result);
+        })
+        onSuccess('ok');
+        }, 0);
+    };
+console.log(logo)
     return (
         <Form
             {...layout}
@@ -37,6 +64,21 @@ export default function General({general}) {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
         >
+            {/* <Form.Item
+                {...tailLayout}
+                label="logo"
+                valuePropName="fileList"> */}
+                <Upload
+                    name="avatar"
+                    listType="picture-card"
+                    className="avatar-uploader"
+                    showUploadList={false}
+                    customRequest={customRequest}
+                    onChange={({file}) => handleChange(file)}
+                >
+                    {logoUrl || logo ? <img src={logoUrl || logo} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                </Upload>
+            {/* </Form.Item> */}
             <Form.Item
                 {...tailLayout}
                 label="Brand"

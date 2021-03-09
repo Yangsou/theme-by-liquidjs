@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 const fetchTpl = engine.getTemplate(tplsrc.toString())
 
-export default function ProductDetail({general, theme, products}) {
+export default function ProductDetail({general, theme, products, ...props}) {
   const [state, setState] = useState({
     html: ''
   });
@@ -17,18 +17,18 @@ export default function ProductDetail({general, theme, products}) {
     fetchTpl
       .then(tpl => engine.render(tpl, {
         ...state,
+        ...props,
         general,
         theme,
         product
       }))
-      .then(html => setState({...state, html}))
+      .then(html => setState({...state, ...props, html}))
   }, [general, theme, product]);
 
   useEffect(() => {
     const product = products.find((e) => e.id.toString() === id.toString());
     setProduct(product);
   }, [id])
-  console.log(id, product);
 
   return (
     <div>
