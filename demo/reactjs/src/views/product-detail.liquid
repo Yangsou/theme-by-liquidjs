@@ -1,23 +1,14 @@
 <div>
     <header className="App-header">
-        <!-- {{ logo | image }} -->
         <h2>{{general.brand | capitalize}}</h2>
-        <!-- <p>Edit <code>src/App.js</code> and save to reload.</p> -->
         <p>{{ general.slogan }}</p>
     </header>
-
+    
     <div class="product {{ theme.theme }} {{ theme.layout }}">
         <div class="product__container">
             <div class="product__row">
-                {% for product in products -%}
-                <div class="product__col">
-                    <div class="product__item">
-                        {{ product.image | image }}
-                        <p class="name">product name</p>
-                        <a href="/product/{{ product.id }}" class="link">View detail</a>
-                    </div>
-                </div>
-                {% endfor -%}
+                <h2>{{ product.name }}</h2>
+                {{ product.image | image }}
             </div>
         </div>
     </div>

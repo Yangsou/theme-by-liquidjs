@@ -5,11 +5,17 @@ import React, { useState, useLayoutEffect } from 'react';
 import './App.scss';
 import logo from './logo.svg';
 import tplsrc from './views/showing-click-times.liquid';
-import Parser from 'html-react-parser';
 import { engine } from './engine';
 import { Context } from './Context';
 import Settings from './settings';
 import imgExample from './assets/img/image-1.jpg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import ProductList from './pages/list';
+import ProductDetail from './pages/product';
 
 const fetchTpl = engine.getTemplate(tplsrc.toString())
 
@@ -85,31 +91,53 @@ export function App() {
         name: 'product 12',
         image: imgExample
       }
-    ]
+    ],
+    theme: {
+      theme: 'theme-1',
+      layout: 'layout-1'
+    }
   });
   const saveGeneralInfo = (form) => {
     setState({
       ...state,
       general: form
-    })
+    });
+    localStorage.setItem('state', JSON.stringify({...state, general: form}));
+  }
+  const saveThemeInfo = (form) => {
+    setState({
+      ...state,
+      theme: form
+    });
+    localStorage.setItem('state', JSON.stringify({...state, theme: form}));
   }
 
   useLayoutEffect(() => {
     fetchTpl
       .then(tpl => engine.render(tpl, state))
       .then(html => setState({...state, html}))
-  }, [state.general])
+  }, [state.general, state.theme])
 
   return (
     <div className="App">
-      {Parser(`${state.html}`)}
       <Context.Provider
         value={{
           saveGeneralInfo,
+          saveThemeInfo,
           count: () => setState({...state, clickCount: state.clickCount + 1})
         }}
       >
-        <Settings general={state.general} />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <ProductList html={state.html} />
+            </Route>
+            <Route path="/product/:id">
+              <ProductDetail {...state} theme={state.theme} general={state.general} />
+            </Route>
+          </Switch>
+        </Router>
+        <Settings general={state.general} theme={state.theme} />
       </Context.Provider>
     </div>
   );

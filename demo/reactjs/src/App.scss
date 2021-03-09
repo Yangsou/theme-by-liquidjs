@@ -3,6 +3,7 @@
 :root {
   --primary-color: #282c34;
   --background-color: #ffffff;
+  --text-color: #141414;
 }
 * {
   margin: 0;
@@ -24,7 +25,6 @@
 }
 
 .product {
-  background-color: var(--background-color);
   &__container {
     max-width: 1200px;
     padding-left: 15px;
@@ -58,16 +58,32 @@
     }
   }
   &.theme-2 {
-    --background-col: #404040;
+    --background-color: #404040;
+    --text-color: #fff;
+  }
+  &.theme-3 {
+    --background-color: #dcdcdc;
+    --text-color: #141414;
+  }
+  &.layout-1 {
+    .product__col {
+      width: 25%;
+    }
+  }
+  &.layout-2 {
     .product__col {
       width: calc(100% / 3);
     }
   }
-  &.theme-3 {
-    --background-color: #dcdcdcb ;
+  &.layout-3 {
     .product__col {
       width: calc(100% / 2);
     }
+  }
+
+  background-color: var(--background-color);
+  p {
+    color: var(--text-color);
   }
 }
 

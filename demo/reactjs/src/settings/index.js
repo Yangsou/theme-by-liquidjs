@@ -2,8 +2,9 @@ import { Button, Modal, Tabs } from 'antd';
 import React, { useState } from 'react';
 import {SettingOutlined} from '@ant-design/icons';
 import General from './general';
+import Theme from './theme';
 
-export default function Settings({general}) {
+export default function Settings({general, theme}) {
     const [visible, setVisible] = useState(false);
     const handleOk = () => {
         //
@@ -18,6 +19,7 @@ export default function Settings({general}) {
         console.log(key);
     }
     console.log('general info', general);
+    console.log('theme info', theme);
     return (
         <>
             <Button
@@ -47,7 +49,7 @@ export default function Settings({general}) {
                         <General general={general} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Theme" key="2">
-                        Theme
+                        <Theme theme={theme} />
                     </Tabs.TabPane>
                 </Tabs>
             </Modal>

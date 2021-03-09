@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import React, { useContext, useState } from 'react';
 import { Context } from '../Context';
 
@@ -14,17 +14,17 @@ export default function General({general}) {
         style: {
             marginBottom: 8
         }
-      };
+    };
     const onFinish = (values) => {
-        console.log('Success:', values);
         setLoading(true);
         context.saveGeneralInfo(values);
         setTimeout(() => {
             setLoading(false);
+            message.success('Updated successfully!');
         }, 100);
     };
     
-      const onFinishFailed = (errorInfo) => {
+    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
