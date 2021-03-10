@@ -55,7 +55,7 @@ export default function General({general, logo}) {
         onSuccess('ok');
         }, 0);
     };
-console.log(logo)
+
     return (
         <Form
             {...layout}

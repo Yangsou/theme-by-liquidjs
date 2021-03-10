@@ -1,0 +1,38 @@
+<div>
+    {{ general.brand | header: general.slogan, logo }}
+    
+    <div class="product product--detail {{ theme.theme }} {{ theme.layout }}">
+        <div class="product__container">
+            <div class="product__row">
+                <div class="col-xs-24">
+                    <form class="contact__form">
+                        <label for="name">Name</label>
+                        <input type="text"
+                            name="name"
+                            id="name"
+                            autocorrect="off"
+                            autocapitalize="off">
+                        <label for="email">Email</label>
+                        <input type="email"
+                            name="email"
+                            id="email"
+                            autocorrect="off"
+                            autocapitalize="off">
+
+                        <label for="note">Note</label>
+                        <textarea
+                            name="note"
+                            id="note"
+                            autocorrect="off"
+                            autocapitalize="off"></textarea>
+                        
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ theme.theme | footer }}
+
+</div>

@@ -29,12 +29,31 @@ engine.registerFilter('footer', d => {
 engine.registerFilter('header', (brand, slogan, logo) => {
   return `
     <header className="App-header">
-      <a href="/">
-        <img src="${logo}" />
-      </a>  
+      <div class="brand">
+        <a href="/">
+          <img src="${logo}" />
+        </a>  
+        <div>
+          <a href="/">${brand}</a>
+          <p>${slogan}</p>
+        </div>
+      </div>
+      <ul class="menu">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/news">News</a>
+        </li>
+        <li>
+          <a href="#">About</a>
+        </li>
+        <li>
+          <a href="/contact">Contact</a>
+        </li>
+      </ul>
       <div>
-        <a href="/">${brand}</a>
-        <p>${slogan}</p>
+        <a href="#">Profile</a>
       </div>
     </header>
   `;

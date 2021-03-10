@@ -1,14 +1,17 @@
 /*
  * function Component with Hooks: Modify ./index.js to apply this file
  */
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import './App.scss';
 import logo from './assets/img/nexlab-logo.svg';
 import tplsrc from './views/showing-click-times.liquid';
 import { engine } from './engine';
 import { Context } from './Context';
 import Settings from './settings';
-import imgExample from './assets/img/image-1.jpg';
+import imgExample1 from './assets/img/RA-AG0017Y10B.jpeg';
+import imgExample2 from './assets/img/BM7264-51A.jpeg';
+import imgExample3 from './assets/img/BI1061-50E.jpeg';
+import imgExample4 from './assets/img/RA-AG0028L10B.jpeg';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,15 +19,17 @@ import {
 } from "react-router-dom";
 import ProductList from './pages/list';
 import ProductDetail from './pages/product';
+import Contact from './pages/contact';
+import News from './pages/news';
 
 const fetchTpl = engine.getTemplate(tplsrc.toString());
 
 export function App() {
+  const [html, setHtml] = useState('');
   const [state, setState] = useState({
     logo: logo,
     name: 'alice',
     clickCount: 0,
-    html: '',
     general: {
       brand: 'Nexlab',
       slogan: 'Inside out',
@@ -32,65 +37,65 @@ export function App() {
     },
     products: [
       {
-        id: '1',
-        name: 'product 1',
-        image: imgExample
+        id: 'RA-AG0017Y10B-1',
+        name: 'Đồng hồ nữ automatic Orient RA-AG0017Y10B',
+        image: imgExample1
       },
       {
-        id: '2',
-        name: 'product 2',
-        image: imgExample
+        id: 'BM7264-51A-1',
+        name: 'Đồng hồ nam Citizen BM7264-51A',
+        image: imgExample2
       },
       {
-        id: '3',
-        name: 'product 3',
-        image: imgExample
+        id: 'BI1061-50E-1',
+        name: 'Đồng hồ nam Citizen BI1061-50E',
+        image: imgExample3
       },
       {
-        id: '4',
-        name: 'product 4',
-        image: imgExample
+        id: 'RA-AG0028L10B-1',
+        name: 'Đồng hồ automatic nam ORIENT BAMBINO OPEN HEART',
+        image: imgExample4
       },
       {
-        id: '5',
-        name: 'product 5',
-        image: imgExample
+        id: 'RA-AG0017Y10B-2',
+        name: 'Đồng hồ nữ automatic Orient RA-AG0017Y10B',
+        image: imgExample1
       },
       {
-        id: '6',
-        name: 'product 6',
-        image: imgExample
+        id: 'BM7264-51A-2',
+        name: 'Đồng hồ nam Citizen BM7264-51A',
+        image: imgExample2
       },
       {
-        id: '7',
-        name: 'product 7',
-        image: imgExample
+        id: 'BI1061-50E-2',
+        name: 'Đồng hồ nam Citizen BI1061-50E',
+        image: imgExample3
       },
       {
-        id: '8',
-        name: 'product 8',
-        image: imgExample
+        id: 'RA-AG0028L10B-2',
+        name: 'Đồng hồ automatic nam ORIENT BAMBINO OPEN HEART',
+        image: imgExample4
       },
       {
-        id: '9',
-        name: 'product 9',
-        image: imgExample
+        id: 'RA-AG0017Y10B',
+        name: 'Đồng hồ nữ automatic Orient RA-AG0017Y10B',
+        image: imgExample1
       },
       {
-        id: '10',
-        name: 'product 10',
-        image: imgExample
+        id: 'BM7264-51A',
+        name: 'Đồng hồ nam Citizen BM7264-51A',
+        image: imgExample2
       },
       {
-        id: '11',
-        name: 'product 11',
-        image: imgExample
+        id: 'BI1061-50E',
+        name: 'Đồng hồ nam Citizen BI1061-50E',
+        image: imgExample3
       },
       {
-        id: '12',
-        name: 'product 12',
-        image: imgExample
-      }
+        id: 'RA-AG0028L10B',
+        name: 'Đồng hồ automatic nam ORIENT BAMBINO OPEN HEART',
+        image: imgExample4
+      },
     ],
     theme: {
       theme: 'theme-1',
@@ -103,7 +108,7 @@ export function App() {
       general: form,
       logo: logoUrl
     });
-    localStorage.setItem('state', JSON.stringify({...state, general: form}));
+    localStorage.setItem('state', JSON.stringify({...state, general: form, logo: logoUrl}));
   }
   const saveThemeInfo = (form) => {
     setState({
@@ -115,9 +120,21 @@ export function App() {
 
   useLayoutEffect(() => {
     fetchTpl
-      .then(tpl => engine.render(tpl, state))
-      .then(html => setState({...state, html}))
-  }, [state.general, state.theme])
+      .then(tpl => engine.render(tpl, {...state}))
+      .then(html => setHtml(html))
+  }, [state.general, state.theme]);
+
+  useEffect(() => {
+    const _state = JSON.parse(localStorage.getItem('state'));
+    if (_state) {
+      setState({
+        ...state,
+        general: _state.general,
+        logo: _state.logo,
+        theme: _state.theme
+      })
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -131,10 +148,16 @@ export function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <ProductList html={state.html} />
+              <ProductList html={html} />
             </Route>
             <Route path="/product/:id">
               <ProductDetail {...state} theme={state.theme} general={state.general} />
+            </Route>
+            <Route path="/contact">
+              <Contact {...state} theme={state.theme} general={state.general} />
+            </Route>
+            <Route path="/news">
+              <News {...state} theme={state.theme} general={state.general} />
             </Route>
           </Switch>
         </Router>
